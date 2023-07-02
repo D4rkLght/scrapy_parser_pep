@@ -13,13 +13,16 @@ class PepParsePipeline:
         self.count_status = defaultdict(int)
 
     def process_item(self, item, spider):
-        self.count_status[item['status']] = self.count_status.get(item['status'], 0) + 1
+        self.count_status[item['status']] = self.count_status.get(
+            item['status'], 0
+        ) + 1
         return item
-        
+
     def close_spider(self, spider):
         RESULTS_DIR = BASE_DIR / 'results'
-        with open(f'{RESULTS_DIR}/status_summary_{DATE_TIME}.csv', mode='w', encoding='utf-8') as csvfile:
-            writer = csv.writer(csvfile, dialect=csv.unix_dialect, quoting=csv.QUOTE_NONE)
+        filename = f'{RESULTS_DIR}/status_summary_{DATE_TIME}.csv'
+        with open(filename, mode='w', encoding='utf-8') as file:
+            writer = csv.writer(file)
             writer.writerow(['status', 'amount'])
             for status, amount in self.count_status.items():
                 writer.writerow([status, amount])
