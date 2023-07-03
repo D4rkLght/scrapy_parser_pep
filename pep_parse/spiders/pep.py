@@ -12,17 +12,17 @@ class PepSpider(scrapy.Spider):
         pep_links = response.css(
             'section#numerical-index a.pep::attr(href)').getall()
         for pep_link in pep_links:
-            yield response.follow(pep_link, callback=self.parse_pep)
+            yield response.follow(pep_link + '/', callback=self.parse_pep)
 
     def parse_pep(self, response):
         data = {
-            "number": int(
+            'number': int(
                 response.css('h1.page-title::text').get().split()[1]
             ),
-            "name": ' '.join(
+            'name': ' '.join(
                 response.css('h1.page-title::text').get().split()[3:]
             ),
-            "status": response.css(
+            'status': response.css(
                 'dt:contains("Status") + dd abbr::text'
             ).get()
         }
