@@ -1,3 +1,4 @@
+![qrkot_spreadsheets_workflow](https://github.com/D4rkLght/scrapy_parser_pep/actions/workflows/scrapy_parser_pep.yml/badge.svg)
 # scrapy_parser_pep
 
 ### Стек технологий
